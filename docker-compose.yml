@@ -1,43 +1,27 @@
-# Usar Usuario, Clave y Base de Datos con su propia información, por ejemplo:
-# POSTGRES_USER: gonzalezj       --->>> su apellido más la primera letra de su nombre
-# POSTGRES_PASSWORD: Jesus556    --->>> una clave que ud. elija
-# POSTGRES_DB: Prueba            --->>> la Base de Datos deberá tener el nombre de Prueba 
-
-version: '1.1'
+version: '3.1'
 
 services:
-
-  services:
   mysql:
-    image: mysql:latest
+    image: mysql:5.7
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: Russo123
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: RussoTl
-      MYSQL_PASSWORD: Russo123
-    volumes:
-      - mysql-data:/var/lib/mysql
+      MYSQL_PASSWORD: russito4
     ports:
       - "3306:3306"
-    networks:
-      - mynetwork
+    volumes:
+      - mysql-data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: rootpassword
+      PMA_PORT: 3306
     ports:
       - "8080:80"
-    depends_on:
-      - mysql
-    networks:
-      - mynetwork
 
 volumes:
   mysql-data:
-
-networks:
-  mynetwork:
